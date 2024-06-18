@@ -1,7 +1,7 @@
 {
-  "name": "react-package-testing-6",
-  "version": "1.1.1",
-  "description": "a react testing of feild validation",
+  "name": "field-validate-react",
+  "version": "1.0.0",
+  "description": "A React library to simplify form field validation and state management.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "scripts": {
