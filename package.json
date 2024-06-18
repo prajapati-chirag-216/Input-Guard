@@ -1,6 +1,6 @@
 {
-  "name": "field-validator-react",
-  "version": "1.2.0",
+  "name": "inputs-validator-react",
+  "version": "1.0.0",
   "description": "A React library to simplify form field validation and state management.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -12,7 +12,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prajapati-chirag-216/Field-Validate-React.git"
+    "url": "git+https://github.com/prajapati-chirag-216/Inputs-Validator-React.git"
   },
   "keywords": [
     "form validation",

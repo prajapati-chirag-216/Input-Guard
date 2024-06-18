@@ -1,6 +1,6 @@
-# Field-Validate-React
+# Inputs-Validator-React
 
-Field-Validate-React is a powerful and easy-to-use React library designed to simplify the management of input fields in forms. It reduces the amount of code required for handling `onChange` validations for fields such as name, email, password, phoneNo etc. With this library, you just need to import the package and pass your field names to the `useForm` hook, and it will take care of the rest.
+Inputs-Validator-React is a powerful and easy-to-use React library designed to simplify the management of input fields in forms. It reduces the amount of code required for handling `onChange` validations for fields such as name, email, password, phoneNo etc. With this library, you just need to import the package and pass your field names to the `useForm` hook, and it will take care of the rest.
 
 ## Features
 
@@ -11,21 +11,21 @@ Field-Validate-React is a powerful and easy-to-use React library designed to sim
 
 ## Installation
 
-To install Field-Validate-React, use npm or yarn:
+To install Inputs-Validator-React, use npm or yarn:
 
 ```bash
-npm install field-validate-react
+npm install inputs-validator-react
 ```
 
 or
 
 ```bash
-yarn add field-validate-react
+yarn add inputs-validator-react
 ```
 
 ## Quickstart
 
-Here is a basic example of how to use Field-Validate-React in your project:
+Here is a basic example of how to use Inputs-Validator-React in your project:
 
 ### Importing the Package
 
@@ -35,7 +35,7 @@ import {
   useForm,
   INPUT_TYPES,
   VALIDATION_MESSAGES,
-} from "field-validate-react";
+} from "inputs-validator-react";
 ```
 
 ### Example Form Component
@@ -133,4 +133,4 @@ VALIDATION_MESSAGES.MOBILE = "Please enter a valid mobile number.";
 
 ---
 
-With Field-Validate-React, you can effortlessly manage form validations and focus on building great user experiences.
+With Inputs-Validator-React, you can effortlessly manage form validations and focus on building great user experiences.
