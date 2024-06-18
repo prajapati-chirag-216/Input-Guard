@@ -35,7 +35,6 @@ export const useForm = (inputFields) => {
     for (let index = 0; index < areInputsValid.length; index++) {
       if (!areInputsValid[index]) {
         inputElements[index].focus();
-        break;
       }
     }
   };

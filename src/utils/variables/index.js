@@ -10,6 +10,8 @@ import {
   passwordReducer,
   phoneNoReducer,
   pinCodeReducer,
+  requiredReducer,
+  userNameReducer,
 } from "../validators";
 
 export const INPUT_ACTIONS = {
@@ -21,6 +23,7 @@ export const INPUT_ACTIONS = {
 // we will provide this values to user
 export const INPUT_TYPES = {
   NAME: "NAME",
+  USERNAME: "USERNAME",
   EMAIL: "EMAIL",
   PASSWORD: "PASSWORD",
   MOBILE: "MOBILE",
@@ -36,13 +39,16 @@ export const INPUT_TYPES = {
 
 // we will provide this values to user
 export const VALIDATION_MESSAGES = {
-  NAME: "Name: 5-30 characters, cannot start with a number.",
+  NAME: "Name: 5-30 characters, cannot contain a number or special character.",
+  USERNAME: "Username: 5-30 characters, cannot start a number.",
   EMAIL: "Enter a valid email address.",
   PASSWORD: "Password: 6-10 characters, avoid 'password'.",
-  PHONENO: "Enter a valid phone number.",
-  NUMBER: "Enter a valid number > 0.",
-  GENERAL: "Enter 6-300 characters.",
+  MOBILE: "Enter a valid phone number.",
+  DIGIT: "Enter a valid number > 0.",
+  ADDRESS: "Address is required (max 300 characters)",
+  REQUIRED: "This Field is required",
   PINCODE: "Enter a valid 6-digit PIN code.",
+  DATE: "Enter a valid date",
   CARDNO: "Enter a valid 14-digit card number.",
   CVV: "CVV: 3-4 digits.",
   EXPIRYDATE: "Enter a valid expiry date.",
@@ -52,6 +58,7 @@ export const VALIDATION_MESSAGES = {
 
 export const INPUT_VALIDATORS = {
   NAME: nameReducer,
+  USERNAME: userNameReducer,
   EMAIL: emailReducer,
   PASSWORD: passwordReducer,
   MOBILE: phoneNoReducer,
@@ -59,7 +66,7 @@ export const INPUT_VALIDATORS = {
   PINCODE: pinCodeReducer,
   DATE: expiryDateReducer,
   CARD: cardNoReducer,
-  ADDRESS: generalReducer,
+  ADDRESS: requiredReducer,
   CVV: cvvReducer,
   DESCRIPTION: descriptionReducer,
   GENRAL: generalReducer,

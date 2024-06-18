@@ -42,12 +42,13 @@ import {
 
 ```javascript
 function Form() {
-  // [INPUT_TYPES.NAME, INPUT_TYPES.EMAIL, INPUT_TYPES.MOBILE] should be in line with your form input fields.
-  // The custom hook predicts that the name field is at the top, then email, and then mobile.
+  // [INPUT_TYPES.EMAIL, INPUT_TYPES.MOBILE] should be in line with your form input fields.
+  // The custom hook predicts that the email field is at the top and then mobile.
   // It returns state in the same order as specified.
-  const [nameState, emailState, mobileState, formState, loadingState] = useForm(
-    [INPUT_TYPES.NAME, INPUT_TYPES.EMAIL, INPUT_TYPES.MOBILE]
-  );
+  const [mailState, mobileState, formState, loadingState] = useForm([
+    INPUT_TYPES.EMAIL,
+    INPUT_TYPES.MOBILE,
+  ]);
 
   const submitFormHandler = (eve) => {
     eve.preventDefault();
@@ -59,42 +60,14 @@ function Form() {
   };
 
   return (
-    <form
-      className="w-100 h-100 flex flex-col gap-5 form"
-      onSubmit={submitFormHandler}
-    >
-      <fieldset className="flex flex-col">
-        <input
-          type="text"
-          placeholder="name"
-          onChange={nameState.onChange}
-          onBlur={nameState.onBlur}
-          value={nameState.value}
-          className={`border-2 border-solid p-2 text-lg focus:text-black focus:placeholder:text-slate-300 ${
-            nameState.isValid === false
-              ? "border-red-400 text-red-400 placeholder:text-red-300"
-              : "border-blue-400 text-blue-400 placeholder:text-blue-300"
-          }`}
-        />
-        {nameState.isValid === false && (
-          <span className="text-red-400 text-start">
-            {VALIDATION_MESSAGES.NAME}
-          </span>
-        )}
-      </fieldset>
-
-      <fieldset className="flex flex-col">
+    <form onSubmit={submitFormHandler}>
+      <fieldset>
         <input
           type="text"
           placeholder="email"
           onChange={emailState.onChange}
           onBlur={emailState.onBlur}
           value={emailState.value}
-          className={`border-2 border-solid p-2 text-lg focus:text-black focus:placeholder:text-slate-300 ${
-            emailState.isValid === false
-              ? "border-red-400 text-red-400 placeholder:text-red-300"
-              : "border-blue-400 text-blue-400 placeholder:text-blue-300"
-          }`}
         />
         {emailState.isValid === false && (
           <span className="text-red-400 text-start">
@@ -103,18 +76,13 @@ function Form() {
         )}
       </fieldset>
 
-      <fieldset className="flex flex-col">
+      <fieldset>
         <input
           type="text"
           placeholder="mobile"
           onChange={mobileState.onChange}
           onBlur={mobileState.onBlur}
           value={mobileState.value}
-          className={`border-2 border-solid p-2 text-lg focus:text-black focus:placeholder:text-slate-300 ${
-            mobileState.isValid === false
-              ? "border-red-400 text-red-400 placeholder:text-red-300"
-              : "border-blue-400 text-blue-400 placeholder:text-blue-300"
-          }`}
         />
         {mobileState.isValid === false && (
           <span className="text-red-400 text-start">
@@ -123,14 +91,7 @@ function Form() {
         )}
       </fieldset>
 
-      <button
-        className={`p-2 bg-blue-400 text-2xl w-100 mt-3 text-white after:content-none disabled:bg-slate-200 disabled:cursor-not-allowed hover:bg-blue-500 duration-75 ${
-          loadingState.isLoading && "after:animate-loading"
-        }`}
-        disabled={loadingState.isLoading}
-      >
-        Submit
-      </button>
+      <button disabled={loadingState.isLoading}>Submit</button>
     </form>
   );
 }
@@ -144,7 +105,7 @@ export default Form;
 
 This hook manages the state and validations for the specified fields.
 
-- **fields**: An array of input types that should be validated. Available types are `INPUT_TYPES.NAME`, `INPUT_TYPES.EMAIL`, `INPUT_TYPES.MOBILE`, etc.
+- **fields**: An array of input types that should be validated. Available types are `INPUT_TYPES.EMAIL`, `INPUT_TYPES.MOBILE`, etc.
 
 Returns an array of states corresponding to the input fields and additional form state.
 
@@ -170,7 +131,6 @@ Each input state object contains:
 You can use the provided validation messages or customize them by using the VALIDATION_MESSAGES object.
 
 ```javascript
-VALIDATION_MESSAGES.NAME = "Please enter a valid name.";
 VALIDATION_MESSAGES.EMAIL = "Please enter a valid email address.";
 VALIDATION_MESSAGES.MOBILE = "Please enter a valid mobile number.";
 ```

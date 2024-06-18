@@ -2,12 +2,58 @@ import { formateData, formateDate } from "../functions";
 
 // Reducer for handling name input state and validation
 export const nameReducer = (state, action) => {
+  let newVal, containsNumber;
+
+  if (action.value !== undefined) {
+    newVal = action.value;
+    newVal = newVal.replace(/[^a-zA-Z0-9\s]+/g, "");
+    containsNumber = /\d/.test(newVal);
+  }
+
+  if (action.type === "INPUT_FETCH") {
+    return {
+      value: newVal,
+      isValid:
+        newVal.trim().length == 0
+          ? null
+          : newVal.trim().length > 5 &&
+            newVal.trim().length <= 30 &&
+            !containsNumber,
+    };
+  }
+
+  if (action.type === "USER_INPUT") {
+    return {
+      value: newVal,
+      isValid:
+        newVal.trim().length > 5 &&
+        newVal.trim().length <= 30 &&
+        !containsNumber,
+    };
+  }
+
+  if (action.type === "INPUT_BLUR") {
+    containsNumber = /\d/.test(state.value.trim());
+    return {
+      value: state.value.trim(),
+      isValid:
+        state.value.trim().length > 5 &&
+        state.value.trim().length <= 30 &&
+        !containsNumber,
+    };
+  }
+
+  return { value: "", isValid: null };
+};
+
+// Reducer for handling userName input state and validation
+export const userNameReducer = (state, action) => {
   let newVal, startsWithNumber;
 
   if (action.value !== undefined) {
     newVal = action.value;
-    newVal = newVal.replace(/[^a-zA-Z0-9\s]+/g, ""); // Remove non-alphanumeric characters
-    startsWithNumber = /^\d/.test(newVal); // Check if value starts with a number
+    newVal = newVal.replace(/[^a-zA-Z0-9\s_@]+/g, ""); // Allow _ and @
+    startsWithNumber = /^\d/.test(newVal);
   }
 
   if (action.type === "INPUT_FETCH") {
@@ -18,7 +64,7 @@ export const nameReducer = (state, action) => {
           ? null
           : newVal.trim().length > 5 &&
             newVal.trim().length <= 30 &&
-            !startsWithNumber, // Validate length and starting character
+            !startsWithNumber,
     };
   }
 
@@ -174,21 +220,50 @@ export const generalReducer = (state, action) => {
       isValid:
         action.value.length === 0
           ? null
-          : action.value.length > 5 && action.value.length < 300, // Validate length range
+          : action.value.length >= 0 && action.value.length < 300, // Validate length range
     };
   }
 
   if (action.type === "USER_INPUT") {
     return {
       value: action.value,
-      isValid: action.value.length > 5 && action.value.length < 300,
+      isValid: action.value.length >= 0 && action.value.length < 300,
     };
   }
 
   if (action.type === "INPUT_BLUR") {
     return {
       value: state.value,
-      isValid: state.value.length > 5 && state.value.length < 300,
+      isValid: state.value.length >= 0 && state.value.length < 300,
+    };
+  }
+
+  return { value: "", isValid: null };
+};
+
+// Reducer for handling general input state and validation
+export const requiredReducer = (state, action) => {
+  if (action.type === "INPUT_FETCH") {
+    return {
+      value: action.value,
+      isValid:
+        action.value.length === 0
+          ? null
+          : action.value.length > 0 && action.value.length < 300, // Validate length range
+    };
+  }
+
+  if (action.type === "USER_INPUT") {
+    return {
+      value: action.value,
+      isValid: action.value.length > 0 && action.value.length < 300,
+    };
+  }
+
+  if (action.type === "INPUT_BLUR") {
+    return {
+      value: state.value,
+      isValid: state.value.length > 0 && state.value.length < 300,
     };
   }
 
