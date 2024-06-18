@@ -1,5 +1,5 @@
 {
-  "name": "field-validate-react",
+  "name": "field-validator-react",
   "version": "1.2.0",
   "description": "A React library to simplify form field validation and state management.",
   "main": "dist/index.js",

@@ -70,9 +70,7 @@ function Form() {
           value={emailState.value}
         />
         {emailState.isValid === false && (
-          <span className="text-red-400 text-start">
-            {VALIDATION_MESSAGES.EMAIL}
-          </span>
+          <span>{VALIDATION_MESSAGES.EMAIL}</span>
         )}
       </fieldset>
 
@@ -85,9 +83,7 @@ function Form() {
           value={mobileState.value}
         />
         {mobileState.isValid === false && (
-          <span className="text-red-400 text-start">
-            {VALIDATION_MESSAGES.MOBILE}
-          </span>
+          <span>{VALIDATION_MESSAGES.MOBILE}</span>
         )}
       </fieldset>
 
