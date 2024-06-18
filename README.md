@@ -59,85 +59,79 @@ function Form() {
   };
 
   return (
-    <div className="w-[30rem] m-auto bg-red">
-      <h1 className="text-3xl text-blue-400 uppercase font-semibold text-left">
-        Login
-      </h1>
-      <hr className="h-[3px] bg-blue-400 mb-5 w-10" />
-      <form
-        className="w-100 h-100 flex flex-col gap-5 form"
-        onSubmit={submitFormHandler}
-      >
-        <fieldset className="flex flex-col">
-          <input
-            type="text"
-            placeholder="name"
-            onChange={nameState.onChange}
-            onBlur={nameState.onBlur}
-            value={nameState.value}
-            className={`border-2 border-solid p-2 text-lg focus:text-black focus:placeholder:text-slate-300 ${
-              nameState.isValid === false
-                ? "border-red-400 text-red-400 placeholder:text-red-300"
-                : "border-blue-400 text-blue-400 placeholder:text-blue-300"
-            }`}
-          />
-          {nameState.isValid === false && (
-            <span className="text-red-400 text-start">
-              {VALIDATION_MESSAGES.NAME}
-            </span>
-          )}
-        </fieldset>
-
-        <fieldset className="flex flex-col">
-          <input
-            type="text"
-            placeholder="email"
-            onChange={emailState.onChange}
-            onBlur={emailState.onBlur}
-            value={emailState.value}
-            className={`border-2 border-solid p-2 text-lg focus:text-black focus:placeholder:text-slate-300 ${
-              emailState.isValid === false
-                ? "border-red-400 text-red-400 placeholder:text-red-300"
-                : "border-blue-400 text-blue-400 placeholder:text-blue-300"
-            }`}
-          />
-          {emailState.isValid === false && (
-            <span className="text-red-400 text-start">
-              {VALIDATION_MESSAGES.EMAIL}
-            </span>
-          )}
-        </fieldset>
-
-        <fieldset className="flex flex-col">
-          <input
-            type="text"
-            placeholder="mobile"
-            onChange={mobileState.onChange}
-            onBlur={mobileState.onBlur}
-            value={mobileState.value}
-            className={`border-2 border-solid p-2 text-lg focus:text-black focus:placeholder:text-slate-300 ${
-              mobileState.isValid === false
-                ? "border-red-400 text-red-400 placeholder:text-red-300"
-                : "border-blue-400 text-blue-400 placeholder:text-blue-300"
-            }`}
-          />
-          {mobileState.isValid === false && (
-            <span className="text-red-400 text-start">
-              {VALIDATION_MESSAGES.MOBILE}
-            </span>
-          )}
-        </fieldset>
-
-        <button
-          className={`p-2 bg-blue-400 text-2xl w-100 mt-3 text-white after:content-none disabled:bg-slate-200 disabled:cursor-not-allowed hover:bg-blue-500 duration-75 ${
-            loadingState.isLoading && "after:animate-loading"
+    <form
+      className="w-100 h-100 flex flex-col gap-5 form"
+      onSubmit={submitFormHandler}
+    >
+      <fieldset className="flex flex-col">
+        <input
+          type="text"
+          placeholder="name"
+          onChange={nameState.onChange}
+          onBlur={nameState.onBlur}
+          value={nameState.value}
+          className={`border-2 border-solid p-2 text-lg focus:text-black focus:placeholder:text-slate-300 ${
+            nameState.isValid === false
+              ? "border-red-400 text-red-400 placeholder:text-red-300"
+              : "border-blue-400 text-blue-400 placeholder:text-blue-300"
           }`}
-          disabled={loadingState.isLoading}
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+        />
+        {nameState.isValid === false && (
+          <span className="text-red-400 text-start">
+            {VALIDATION_MESSAGES.NAME}
+          </span>
+        )}
+      </fieldset>
+
+      <fieldset className="flex flex-col">
+        <input
+          type="text"
+          placeholder="email"
+          onChange={emailState.onChange}
+          onBlur={emailState.onBlur}
+          value={emailState.value}
+          className={`border-2 border-solid p-2 text-lg focus:text-black focus:placeholder:text-slate-300 ${
+            emailState.isValid === false
+              ? "border-red-400 text-red-400 placeholder:text-red-300"
+              : "border-blue-400 text-blue-400 placeholder:text-blue-300"
+          }`}
+        />
+        {emailState.isValid === false && (
+          <span className="text-red-400 text-start">
+            {VALIDATION_MESSAGES.EMAIL}
+          </span>
+        )}
+      </fieldset>
+
+      <fieldset className="flex flex-col">
+        <input
+          type="text"
+          placeholder="mobile"
+          onChange={mobileState.onChange}
+          onBlur={mobileState.onBlur}
+          value={mobileState.value}
+          className={`border-2 border-solid p-2 text-lg focus:text-black focus:placeholder:text-slate-300 ${
+            mobileState.isValid === false
+              ? "border-red-400 text-red-400 placeholder:text-red-300"
+              : "border-blue-400 text-blue-400 placeholder:text-blue-300"
+          }`}
+        />
+        {mobileState.isValid === false && (
+          <span className="text-red-400 text-start">
+            {VALIDATION_MESSAGES.MOBILE}
+          </span>
+        )}
+      </fieldset>
+
+      <button
+        className={`p-2 bg-blue-400 text-2xl w-100 mt-3 text-white after:content-none disabled:bg-slate-200 disabled:cursor-not-allowed hover:bg-blue-500 duration-75 ${
+          loadingState.isLoading && "after:animate-loading"
+        }`}
+        disabled={loadingState.isLoading}
+      >
+        Submit
+      </button>
+    </form>
   );
 }
 
