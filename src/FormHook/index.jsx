@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { INPUT_VALIDATORS } from "../utils/variables";
-import { delay } from "../utils/functions";
 import useInput from "./InputHook/index.jsx";
 
 export const useForm = (inputFields) => {
   const [isFormValid, setIsFormValid] = useState(false); // State to track form validity
-  const [isLoading, setIsLoading] = useState(false); // State to track loading status
 
   // Call useInput for each input field and get a list of states
   const inputStates = inputFields.map((field) =>
@@ -26,14 +24,17 @@ export const useForm = (inputFields) => {
   }, areInputsValid); // Dependency array to re-run effect when input validity changes
 
   const validateFormHandler = () => {
-    const formElement = document.querySelector(".form");
+    const formElement = document.getElementById("form");
 
     // Get all input elements within the form
     const inputElements = formElement.querySelectorAll("input");
 
     // Loop through each and focus the first invalid input
-    for (let index = 0; index < areInputsValid.length; index++) {
+    for (let index = areInputsValid.length - 1; index >= 0; index--) {
       if (!areInputsValid[index]) {
+        // this simple hack of focus-blur-focus cycle will highlight all invalid inputs
+        inputElements[index].focus();
+        inputElements[index].blur();
         inputElements[index].focus();
       }
     }
@@ -45,12 +46,11 @@ export const useForm = (inputFields) => {
     }
     if (!isFormValid) {
       validateFormHandler(); // Validate form if not valid
+      return { success: false };
     } else {
-      setIsLoading(true); // Set loading state
       const data = inputStates.map((inputState) => inputState.value);
 
       // Return success status and form data (useful for API calls)
-      setIsLoading(false); // Reset loading state
       return { success: true, data };
     }
   };
@@ -59,9 +59,5 @@ export const useForm = (inputFields) => {
     onSubmit: submitFormHandler, // Submit form handler
   };
 
-  const loadingState = {
-    isLoading, // Loading state
-  };
-
-  return [formState, loadingState, ...inputStates]; // Return combined states
+  return [formState, ...inputStates]; // Return combined states
 };

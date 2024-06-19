@@ -43,11 +43,11 @@ import {
 ```javascript
 function Form() {
   // [INPUT_TYPES.EMAIL, INPUT_TYPES.MOBILE] should be in line with your form input fields.
-  // The useForm custom hook returns formState and loadingState first,
-  // followed by your inputstates, in the specified order.
-  // The custom hook predicts that the email field is at the top and then mobile.
+  // The useForm hook returns `formState` first followed by your inputstates, in the specified order.
+  // The useForm hook predicts that the email field is at the top and then mobile.
+  // You need to set id="form" to your form.
 
-  const [formState, loadingState, emailState, mobileState] = useForm([
+  const [formState, emailState, mobileState] = useForm([
     INPUT_TYPES.EMAIL,
     INPUT_TYPES.MOBILE,
   ]);
@@ -62,7 +62,7 @@ function Form() {
   };
 
   return (
-    <form onSubmit={submitFormHandler}>
+    <form onSubmit={submitFormHandler} id="form">
       <fieldset>
         <input
           type="text"
@@ -89,7 +89,7 @@ function Form() {
         )}
       </fieldset>
 
-      <button disabled={loadingState.isLoading}>Submit</button>
+      <button>Submit</button>
     </form>
   );
 }
@@ -119,10 +119,6 @@ Each input state object contains:
 ### Form State
 
 - `onSubmit()`: Function to handle form submission, returns an object containing `success` and `data`.
-
-### Loading State
-
-- `isLoading`: A boolean indicating if the form is in the loading state.
 
 ## Validation Messages
 
