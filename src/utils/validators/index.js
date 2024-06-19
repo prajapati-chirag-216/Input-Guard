@@ -16,7 +16,7 @@ export const nameReducer = (state, action) => {
       isValid:
         newVal.trim().length == 0
           ? null
-          : newVal.trim().length > 5 &&
+          : newVal.trim().length > 2 &&
             newVal.trim().length <= 30 &&
             !containsNumber,
     };
@@ -26,7 +26,7 @@ export const nameReducer = (state, action) => {
     return {
       value: newVal,
       isValid:
-        newVal.trim().length > 5 &&
+        newVal.trim().length > 2 &&
         newVal.trim().length <= 30 &&
         !containsNumber,
     };
@@ -37,7 +37,7 @@ export const nameReducer = (state, action) => {
     return {
       value: state.value.trim(),
       isValid:
-        state.value.trim().length > 5 &&
+        state.value.trim().length > 2 &&
         state.value.trim().length <= 30 &&
         !containsNumber,
     };

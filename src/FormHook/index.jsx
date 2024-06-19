@@ -47,13 +47,10 @@ export const useForm = (inputFields) => {
       validateFormHandler(); // Validate form if not valid
     } else {
       setIsLoading(true); // Set loading state
-      delay(3000).then(() => {
-        // alert("Successfully Submitted"); // Alert on successful submission
-        setIsLoading(false); // Reset loading state
-      });
       const data = inputStates.map((inputState) => inputState.value);
 
       // Return success status and form data (useful for API calls)
+      setIsLoading(false); // Reset loading state
       return { success: true, data };
     }
   };
@@ -66,5 +63,5 @@ export const useForm = (inputFields) => {
     isLoading, // Loading state
   };
 
-  return [...inputStates, formState, loadingState]; // Return combined states
+  return [formState, loadingState, ...inputStates]; // Return combined states
 };

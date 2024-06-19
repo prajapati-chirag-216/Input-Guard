@@ -43,9 +43,11 @@ import {
 ```javascript
 function Form() {
   // [INPUT_TYPES.EMAIL, INPUT_TYPES.MOBILE] should be in line with your form input fields.
+  // The useForm custom hook returns formState and loadingState first,
+  // followed by your inputstates, in the specified order.
   // The custom hook predicts that the email field is at the top and then mobile.
-  // It returns state in the same order as specified.
-  const [mailState, mobileState, formState, loadingState] = useForm([
+
+  const [formState, loadingState, emailState, mobileState] = useForm([
     INPUT_TYPES.EMAIL,
     INPUT_TYPES.MOBILE,
   ]);

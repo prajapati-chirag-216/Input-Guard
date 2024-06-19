@@ -39,7 +39,7 @@ export const INPUT_TYPES = {
 
 // we will provide this values to user
 export const VALIDATION_MESSAGES = {
-  NAME: "Name: 5-30 characters, cannot contain a number or special character.",
+  NAME: "Name: 3-30 characters, cannot contain a number or special character.",
   USERNAME: "Username: 5-30 characters, cannot start a number.",
   EMAIL: "Enter a valid email address.",
   PASSWORD: "Password: 6-10 characters, avoid 'password'.",
