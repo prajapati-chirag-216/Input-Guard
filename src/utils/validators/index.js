@@ -249,21 +249,21 @@ export const requiredReducer = (state, action) => {
       isValid:
         action.value.length === 0
           ? null
-          : action.value.length > 0 && action.value.length < 300, // Validate length range
+          : action.value.length > 0 && action.value.length < 1000, // Validate length range
     };
   }
 
   if (action.type === "USER_INPUT") {
     return {
       value: action.value,
-      isValid: action.value.length > 0 && action.value.length < 300,
+      isValid: action.value.length > 0 && action.value.length < 1000,
     };
   }
 
   if (action.type === "INPUT_BLUR") {
     return {
       value: state.value,
-      isValid: state.value.length > 0 && state.value.length < 300,
+      isValid: state.value.length > 0 && state.value.length < 1000,
     };
   }
 

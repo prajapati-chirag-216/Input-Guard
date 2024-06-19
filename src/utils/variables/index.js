@@ -35,6 +35,7 @@ export const INPUT_TYPES = {
   CVV: "CVV",
   DESCRIPTION: "DESCRIPTION",
   GENRAL: "GENRAL",
+  REQUIRED: "REQUIRED",
 };
 
 // we will provide this values to user
@@ -46,12 +47,12 @@ export const VALIDATION_MESSAGES = {
   MOBILE: "Enter a valid phone number.",
   DIGIT: "Enter a valid number > 0.",
   ADDRESS: "Address is required (max 300 characters)",
-  REQUIRED: "This Field is required",
+  GENRAL: "This field is required (max 300 characters)",
+  REQUIRED: "This field is required (max 1000 characters)",
   PINCODE: "Enter a valid 6-digit PIN code.",
   DATE: "Enter a valid date",
-  CARDNO: "Enter a valid 14-digit card number.",
+  CARD: "Enter a valid 14-digit card number.",
   CVV: "CVV: 3-4 digits.",
-  EXPIRYDATE: "Enter a valid expiry date.",
   DESCRIPTION: "Description: 40-400 characters.",
   IMAGE: "Image is required (jpeg,png,jpg)",
 };
@@ -70,4 +71,5 @@ export const INPUT_VALIDATORS = {
   CVV: cvvReducer,
   DESCRIPTION: descriptionReducer,
   GENRAL: generalReducer,
+  REQUIRED: requiredReducer,
 };
