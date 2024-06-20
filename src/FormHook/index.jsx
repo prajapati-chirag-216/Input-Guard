@@ -3,36 +3,36 @@ import { INPUT_VALIDATORS } from "../utils/variables";
 import useInput from "./InputHook/index.jsx";
 
 export const useForm = (inputFields) => {
-  const [isFormValid, setIsFormValid] = useState(false); // State to track form validity
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  // Call useInput for each input field and get a list of states
+  // calling useInput for each input field and getting list of states
   const inputStates = inputFields.map((field) =>
     useInput(INPUT_VALIDATORS[field])
   );
 
-  // Get an array of input validity statuses [true, false, ...]
+  // Getting array of input status ie.[true,false,..]
   const areInputsValid = inputStates.map((inputState) => inputState.isValid);
 
   useEffect(() => {
-    // Implement debouncing to check form validity
+    // implemented debouncing
     const timer = setTimeout(() => {
       const isValid = areInputsValid.every((isValid) => isValid);
-      setIsFormValid(isValid); // Update form validity state
-    }, 500);
+      setIsFormValid(isValid);
+    }, [500]);
 
-    return () => clearTimeout(timer); // Cleanup timer on component unmount
-  }, areInputsValid); // Dependency array to re-run effect when input validity changes
+    return () => clearTimeout(timer);
+  }, areInputsValid);
 
   const validateFormHandler = () => {
-    const formElement = document.getElementById("form");
+    const formElement = document.querySelector(".form");
 
     // Get all input elements within the form
-    const inputElements = formElement.querySelectorAll("input");
+    const inputElements = formElement.querySelectorAll(".form-inp");
 
-    // Loop through each and focus the first invalid input
+    // Loop through each from last and then focus first invalid input
     for (let index = areInputsValid.length - 1; index >= 0; index--) {
       if (!areInputsValid[index]) {
-        // this simple hack of focus-blur-focus cycle will highlight all invalid inputs
+        // this cycle of focus blur and focus will make all inputs to show validation message
         inputElements[index].focus();
         inputElements[index].blur();
         inputElements[index].focus();
@@ -49,8 +49,7 @@ export const useForm = (inputFields) => {
       return { success: false };
     } else {
       const data = inputStates.map((inputState) => inputState.value);
-
-      // Return success status and form data (useful for API calls)
+      // Return success status and form data
       return { success: true, data };
     }
   };
@@ -59,5 +58,5 @@ export const useForm = (inputFields) => {
     onSubmit: submitFormHandler, // Submit form handler
   };
 
-  return [formState, ...inputStates]; // Return combined states
+  return [formState, ...inputStates];
 };

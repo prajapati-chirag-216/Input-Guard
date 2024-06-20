@@ -1,6 +1,6 @@
-# Inputs-Validator-React
+# Input-Guard
 
-Inputs-Validator-React is a powerful and easy-to-use React library designed to simplify the management of input fields in forms. It reduces the amount of code required for handling `onChange` validations for fields such as name, email, password, phoneNo etc. With this library, you just need to import the package and pass your field names to the `useForm` hook, and it will take care of the rest.
+Input-Guard is a powerful and easy-to-use React library designed to simplify the management of input fields in forms. It reduces the amount of code required for handling `onChange` validations for fields such as name, email, password, phoneNo etc. With this library, you just need to import the package and pass your field names to the `useForm` hook, and it will take care of the rest.
 
 ## Features
 
@@ -11,31 +11,27 @@ Inputs-Validator-React is a powerful and easy-to-use React library designed to s
 
 ## Installation
 
-To install Inputs-Validator-React, use npm or yarn:
+To install Input-Guard, use npm or yarn:
 
 ```bash
-npm install inputs-validator-react
+npm install input-guard
 ```
 
 or
 
 ```bash
-yarn add inputs-validator-react
+yarn add input-guard
 ```
 
 ## Quickstart
 
-Here is a basic example of how to use Inputs-Validator-React in your project:
+Here is a basic example of how to use Input-Guard in your project:
 
 ### Importing the Package
 
 ```javascript
 import React from "react";
-import {
-  useForm,
-  INPUT_TYPES,
-  VALIDATION_MESSAGES,
-} from "inputs-validator-react";
+import { useForm, INPUT_TYPES, VALIDATION_MESSAGES } from "input-guard";
 ```
 
 ### Example Form Component
@@ -131,4 +127,4 @@ VALIDATION_MESSAGES.MOBILE = "Please enter a valid mobile number.";
 
 ---
 
-With Inputs-Validator-React, you can effortlessly manage form validations and focus on building great user experiences.
+With Input-Guard, you can effortlessly manage form validations and focus on building great user experiences.

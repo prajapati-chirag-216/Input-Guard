@@ -9,7 +9,7 @@ const useInput = (reducer) => {
   });
 
   // Handler to update the input value on change
-  const changeInputHandler = (eve, inpType) => {
+  const changeInputHandler = (eve) => {
     const value = eve.target.value;
     dispatchInput({ type: INPUT_ACTIONS.USER_INPUT, value }); // Dispatch action for user input
   };

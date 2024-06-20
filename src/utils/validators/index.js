@@ -1,4 +1,9 @@
-import { formateData, formateDate } from "../functions";
+import {
+  formateDOB,
+  formateData,
+  formateDate,
+  validateEmail,
+} from "../functions";
 
 // Reducer for handling name input state and validation
 export const nameReducer = (state, action) => {
@@ -100,25 +105,21 @@ export const emailReducer = (state, action) => {
       isValid:
         action.value.trim().length === 0
           ? null
-          : action.value.trim().includes("@"), // Validate presence of "@"
+          : validateEmail(action.value.trim()),
     };
   }
 
   if (action.type === "USER_INPUT") {
     return {
       value: action.value.trim(),
-      isValid:
-        action.value.trim().includes("@") &&
-        action.value.trim().endsWith("gmail.com"), // Validate domain
+      isValid: validateEmail(action.value.trim()),
     };
   }
 
   if (action.type === "INPUT_BLUR") {
     return {
       value: state.value.trim(),
-      isValid:
-        state.value.trim().includes("@") &&
-        state.value.trim().endsWith("gmail.com"),
+      isValid: validateEmail(state.value.trim()),
     };
   }
 
@@ -164,29 +165,37 @@ export const passwordReducer = (state, action) => {
 
 // Reducer for handling phone number input state and validation
 export const phoneNoReducer = (state, action) => {
+  let formattedPhoneNumber;
+
+  if (action.value !== undefined) {
+    formattedPhoneNumber = formateData(action.value, "-", 10);
+    formattedPhoneNumber = formattedPhoneNumber.replace(/[^0-9-]/g, "");
+  }
+
   if (action.type === "INPUT_FETCH") {
-    const formattedPhoneNumber = formateData(action.value, "-", 10);
     return {
       value: formattedPhoneNumber,
       isValid:
-        action.value.trim().length === 0
+        formattedPhoneNumber.trim().length === 0
           ? null
-          : formattedPhoneNumber.length === 12, // Validate formatted length
+          : formattedPhoneNumber.length === 12 &&
+            !formattedPhoneNumber.startsWith("0"),
     };
   }
 
   if (action.type === "USER_INPUT") {
-    const formattedPhoneNumber = formateData(action.value, "-", 10);
     return {
       value: formattedPhoneNumber,
-      isValid: formattedPhoneNumber.length === 12,
+      isValid:
+        formattedPhoneNumber.length === 12 &&
+        !formattedPhoneNumber.startsWith("0"),
     };
   }
 
   if (action.type === "INPUT_BLUR") {
     return {
       value: state.value,
-      isValid: state.value.length === 12,
+      isValid: state.value.length === 12 && !state.value.startsWith("0"),
     };
   }
 
@@ -276,16 +285,15 @@ export const pinCodeReducer = (state, action) => {
 
   if (action.value !== undefined) {
     newVal = action.value;
-    newVal = newVal.replace(/\D/g, ""); // Remove non-digit characters
+    newVal = newVal.replace(/\D/g, "");
   }
 
   if (action.type === "INPUT_FETCH") {
     return {
       value: newVal,
-      isValid: newVal.length === 0 ? null : newVal.length === 6, // Validate length
+      isValid: newVal.length == 0 ? null : newVal.length === 6,
     };
   }
-
   if (action.type === "USER_INPUT") {
     if (newVal.length === 7) {
       return { value: state.value.trim(), isValid: true };
@@ -295,14 +303,12 @@ export const pinCodeReducer = (state, action) => {
       isValid: newVal.length === 6,
     };
   }
-
   if (action.type === "INPUT_BLUR") {
     return {
       value: state.value.trim(),
       isValid: state.value.trim().length === 6,
     };
   }
-
   return { value: "", isValid: null };
 };
 
@@ -374,8 +380,12 @@ export const cvvReducer = (state, action) => {
   return { value: "", isValid: null };
 };
 
-// Reducer for handling expiry date input state and validation
+// Reducer for handling card expiry date input state and validation
 export const expiryDateReducer = (state, action) => {
+  const currentDate = new Date();
+  const curruentYear = +currentDate.getFullYear().toString().slice(2);
+  const curruentMonth = currentDate.getMonth() + 1;
+
   if (action.type === "INPUT_FETCH") {
     const { tempDate, isValid } = formateDate(action.value);
     return {
@@ -394,7 +404,14 @@ export const expiryDateReducer = (state, action) => {
 
   if (action.type === "INPUT_BLUR") {
     let newDate = state.value.split("/");
-    let isValid = newDate[0] !== "00" && +newDate[0] <= 12 && +newDate[1] > 23;
+    const month_inp = +newDate[0];
+    const year_inp = +newDate[1];
+    let isValid;
+    if (year_inp == curruentYear) {
+      isValid = month_inp !== 0 && month_inp <= 12 && month_inp > curruentMonth;
+    } else {
+      isValid = month_inp !== 0 && month_inp <= 12 && year_inp > curruentYear;
+    }
     isValid = isValid && newDate.join("").length === 4;
     return {
       value: state.value,
@@ -404,6 +421,66 @@ export const expiryDateReducer = (state, action) => {
 
   return { value: "", isValid: null };
 };
+
+// we will work on it in future
+// Reducer for handling DOB input state and validation
+// export const DOBReducer = (state, action) => {
+//   const currentDate = new Date();
+//   const curruentYear = currentDate.getFullYear().slice(2);
+//   const curruentMonth = currentDate.getMonth() + 1;
+
+//   if (action.type === "INPUT_FETCH") {
+//     const { tempDate, isValid } = formateDOB(action.value);
+//     return {
+//       value: tempDate,
+//       isValid: action.value.trim().length === 0 ? null : isValid, // Validate date format
+//     };
+//   }
+
+//   if (action.type === "USER_INPUT") {
+//     const { tempDate, isValid } = formateDOB(action.value);
+//     return {
+//       value: tempDate,
+//       isValid: isValid,
+//     };
+//   }
+
+//   const date_inp = +newDate[0];
+//   const month_inp = +newDate[1];
+//   const year_inp = +newDate[2];
+
+//   if (action.type === "INPUT_BLUR") {
+//     let newDate = state.value.split("/");
+//     let isValid;
+//     if (year_inp == curruentYear) {
+//       if (month_inp == curruentMonth) {
+//         isValid = date_inp !== 0 && date_inp < currentDate;
+//       } else {
+//         isValid =
+//           date_inp !== 0 &&
+//           date_inp <= 31 &&
+//           month_inp !== 0 &&
+//           month_inp < curruentMonth;
+//       }
+//     } else {
+//       isValid =
+//         date_inp !== 0 &&
+//         date_inp <= 12 &&
+//         month_inp !== 0 &&
+//         year_inp !== 0 &&
+//         month_inp <= 12 &&
+//         month_inp < curruentYear;
+//     }
+
+//     isValid = isValid && newDate.join("").length === 8;
+//     return {
+//       value: state.value,
+//       isValid: isValid,
+//     };
+//   }
+
+//   return { value: "", isValid: null };
+// };
 
 // Reducer for handling description input state and validation
 export const descriptionReducer = (state, action) => {
