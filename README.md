@@ -102,7 +102,7 @@ export default Form;
 
 This hook manages the state and validations for the specified fields.
 
-- **fields**: An array of input types that should be validated. Available types are `INPUT_TYPES.EMAIL`, `INPUT_TYPES.MOBILE`, etc.
+- **fields**: An array of input types that should be validated. Available types are `INPUT_TYPES.EMAIL`, `INPUT_TYPES.PHONE_NO`, etc.
 
 Returns an array of states corresponding to the input fields and additional form state.
 
