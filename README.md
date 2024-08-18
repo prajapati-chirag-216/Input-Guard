@@ -38,14 +38,15 @@ import { useForm, INPUT_TYPES, VALIDATION_MESSAGES } from "input-guard";
 
 ```javascript
 function Form() {
-  // [INPUT_TYPES.EMAIL, INPUT_TYPES.MOBILE] should be in line with your form input fields.
+  // [INPUT_TYPES.EMAIL, INPUT_TYPES.PHONE_NO] should be in line with your form input fields.
   // The useForm hook returns `formState` first followed by your inputstates, in the specified order.
   // The useForm hook predicts that the email field is at the top and then mobile.
-  // You need to set id="form" to your form.
+  // You need to set className="form" to your form.
+  // You need to set className="form-inp" to your input tages.
 
   const [formState, emailState, mobileState] = useForm([
     INPUT_TYPES.EMAIL,
-    INPUT_TYPES.MOBILE,
+    INPUT_TYPES.PHONE_NO,
   ]);
 
   const submitFormHandler = (eve) => {
@@ -66,6 +67,7 @@ function Form() {
           onChange={emailState.onChange}
           onBlur={emailState.onBlur}
           value={emailState.value}
+          className="form-inp"
         />
         {emailState.isValid === false && (
           <span>{VALIDATION_MESSAGES.EMAIL}</span>
@@ -79,9 +81,10 @@ function Form() {
           onChange={mobileState.onChange}
           onBlur={mobileState.onBlur}
           value={mobileState.value}
+          className="form-inp"
         />
         {mobileState.isValid === false && (
-          <span>{VALIDATION_MESSAGES.MOBILE}</span>
+          <span>{VALIDATION_MESSAGES.PHONE_NO}</span>
         )}
       </fieldset>
 
@@ -122,7 +125,7 @@ You can use the provided validation messages or customize them by using the VALI
 
 ```javascript
 VALIDATION_MESSAGES.EMAIL = "Please enter a valid email address.";
-VALIDATION_MESSAGES.MOBILE = "Please enter a valid mobile number.";
+VALIDATION_MESSAGES.PHONE_NO = "Please enter a valid mobile number.";
 ```
 
 ---
