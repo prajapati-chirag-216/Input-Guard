@@ -59,7 +59,7 @@ function Form() {
   };
 
   return (
-    <form onSubmit={submitFormHandler} id="form">
+    <form onSubmit={submitFormHandler} className="form">
       <fieldset>
         <input
           type="text"
